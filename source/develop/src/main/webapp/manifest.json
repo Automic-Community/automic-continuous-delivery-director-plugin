@@ -1,0 +1,430 @@
+{
+  "name": "CDA",
+  "vendor": "CA Technologies",
+  "uniqueId": "CDA",
+  "description": "Plugin for Continuous Delivery Automation",
+  "version": "3.0.1",
+  "iconUrl": "CA.svg",
+  "endpointTemplate": {
+    "uniqueId": "Endpoint",
+    "name": "CDA",
+    "description": "Endpoint Template for Continuous Delivery Automation",
+    "serviceType": "ENDPOINT",
+    "endPointType": "Endpoint",
+    "url": "Endpoint",
+    "parameters": [
+      {
+        "uniqueId": "URL",
+        "name": "URL",
+        "displayName": "URL",
+        "type": "string",
+        "isOptional": false,
+        "defaultValue": null,
+        "description": "URL"
+      },
+      {
+        "uniqueId": "username",
+        "name": "username",
+        "displayName": "Username",
+        "type": "string",
+        "isOptional": false,
+        "defaultValue": null,
+        "description": "Username"
+      },
+      {
+        "uniqueId": "password",
+        "name": "password",
+        "displayName": "Password",
+        "type": "password",
+        "isOptional": false,
+        "defaultValue": null,
+        "description": "Password"
+      }
+    ]
+  },
+  "services": [
+    {
+      "uniqueId": "start-general-workflow",
+      "name": "Start General Workflow",
+      "description": "Start General Workflow with the passed data.",
+      "serviceType": "TASK",
+      "url": "api/workflows/execute",
+      "inputParameters": [
+        {
+          "uniqueId": "workflow",
+          "name": "workflow",
+          "displayName": "Workflow",
+          "type": "string",
+          "isOptional": false,
+          "defaultValue": null,
+          "description": "Workflow to be executed. if the selected workflow is an application workflow 'application', 'package' and 'deployment_profile' are mandatory too.",
+          "url": "api/workflows/general-workflows"
+        },
+        {
+          "uniqueId": "dynamic_property",
+          "name": "dynamic_property",
+          "displayName": "Dynamic Property",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed.",
+          "url": "api/workflows/dynamic-property",
+          "dependencies": [
+            "workflow"
+          ]
+        },
+        {
+          "uniqueId": "dynamic_property_value",
+          "name": "dynamic_property_value",
+          "displayName": "Value",
+          "type": "textarea",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed."
+        },
+        {
+          "uniqueId": "additional_dynamic_properties",
+          "name": "additional_dynamic_properties",
+          "displayName": "Additional Dynamic Properties",
+          "type": "textarea",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Pass additional dynamic properties and values (in JSON format) here ..."
+        },
+        {
+          "uniqueId": "compensation_parameters",
+          "name": "compensation_parameters",
+          "displayName": "Compensation Parameters",
+          "type": "boolean",
+          "isOptional": true,
+          "defaultValue": "false",
+          "description": "Compensation Parameters",
+          "possibleValues": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true",
+              "parameters": [
+                {
+                  "uniqueId": "compensation_workflow",
+                  "name": "compensation_workflow",
+                  "displayName": "Workflow",
+                  "type": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "description": "Workflow to be executed. if the selected workflow is an application workflow 'application', 'package' and 'deployment_profile' are mandatory too.",
+                  "url": "api/workflows/general-workflows"
+                },
+                {
+                  "uniqueId": "compensation_dynamic_property",
+                  "name": "compensation_dynamic_property",
+                  "displayName": "Dynamic Property",
+                  "type": "string",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed.",
+                  "url": "api/workflows/compensation-dynamic-property",
+                  "dependencies": [
+                    "compensation_workflow"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_dynamic_property_value",
+                  "name": "compensation_dynamic_property_value",
+                  "displayName": "Value",
+                  "type": "textarea",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed."
+                },
+                {
+                  "uniqueId": "compensation_additional_dynamic_properties",
+                  "name": "compensation_additional_dynamic_properties",
+                  "displayName": "Additional Dynamic Properties",
+                  "type": "textarea",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Pass additional dynamic properties and values (in JSON format) here ..."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputParameters": [
+        {
+          "uniqueId": "ExecutionID",
+          "name": "ExecutionID",
+          "displayName": "ExecutionID",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "The ID of the Execution."
+        },
+        {
+          "uniqueId": "RunID",
+          "name": "RunID",
+          "displayName": "RunID",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "The runID for the workflow in the Automation Engine."
+        }
+      ]
+    },
+    {
+      "uniqueId": "start-application-workflow",
+      "name": "Start Application Workflow",
+      "description": "Start Application Workflow with the passed data.",
+      "serviceType": "TASK",
+      "url": "api/workflows/execute",
+      "inputParameters": [
+        {
+          "uniqueId": "application",
+          "name": "application",
+          "displayName": "Application",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Application to be executed. Required to execute an application workflow.",
+          "url": "api/workflows/applications"
+        },
+        {
+          "uniqueId": "workflow",
+          "name": "workflow",
+          "displayName": "Workflow",
+          "type": "string",
+          "isOptional": false,
+          "defaultValue": null,
+          "description": "Workflow to be executed. if the selected workflow is an application workflow 'application', 'package' and 'deployment_profile' are mandatory too.",
+          "url": "api/workflows/application-workflows",
+          "dependencies": [
+            "application"
+          ]
+        },
+        {
+          "uniqueId": "package",
+          "name": "package",
+          "displayName": "Package",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Package to be executed. Required to execute an application workflow.",
+          "url": "api/workflows/packages",
+          "dependencies": [
+            "application"
+          ]
+        },
+        {
+          "uniqueId": "deployment_profile",
+          "name": "deployment_profile",
+          "displayName": "Deployment Profile",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Deployment profile to be executed. Required to execute an application workflow.",
+          "url": "api/workflows/profiles",
+          "dependencies": [
+            "application"
+          ]
+        },
+        {
+          "uniqueId": "install_mode",
+          "name": "install_mode",
+          "displayName": "Installation Mode",
+          "type": "string",
+          "isOptional": false,
+          "defaultValue": "Overwrite Existing",
+          "description": "SkipExisting deploys on targets where the package has not been deployed yet. OverwriteExisting deploys the package on every target by overwriting.",
+          "possibleValues": [
+            "Overwrite Existing",
+            "Skip Existing"
+          ]
+        },
+        {
+          "uniqueId": "dynamic_property",
+          "name": "dynamic_property",
+          "displayName": "Dynamic Property",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed.",
+          "url": "api/workflows/dynamic-property",
+          "dependencies": [
+            "application",
+            "workflow",
+            "package"
+          ]
+        },
+        {
+          "uniqueId": "dynamic_property_value",
+          "name": "dynamic_property_value",
+          "displayName": "Value",
+          "type": "textarea",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed."
+        },
+        {
+          "uniqueId": "additional_dynamic_properties",
+          "name": "additional_dynamic_properties",
+          "displayName": "Additional Dynamic Properties",
+          "type": "textarea",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "Pass additional dynamic properties and values (in JSON format) here ..."
+        },
+        {
+          "uniqueId": "compensation_parameters",
+          "name": "compensation_parameters",
+          "displayName": "Compensation Parameters",
+          "type": "boolean",
+          "isOptional": true,
+          "defaultValue": "false",
+          "description": "Compensation Parameters",
+          "possibleValues": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true",
+              "parameters": [
+                {
+                  "uniqueId": "compensation_application",
+                  "name": "compensation_application",
+                  "displayName": "Application",
+                  "type": "string",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Application to be executed. Required to execute an application workflow.",
+                  "url": "api/workflows/applications"
+                },
+                {
+                  "uniqueId": "compensation_workflow",
+                  "name": "compensation_workflow",
+                  "displayName": "Workflow",
+                  "type": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "description": "Workflow to be executed. if the selected workflow is an application workflow 'application', 'package' and 'deployment_profile' are mandatory too.",
+                  "url": "api/workflows/application-workflows",
+                  "dependencies": [
+                    "compensation_application"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_package",
+                  "name": "compensation_package",
+                  "displayName": "Package",
+                  "type": "string",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Package to be executed. Required to execute an application workflow.",
+                  "url": "api/workflows/packages",
+                  "dependencies": [
+                    "compensation_application"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_deployment_profile",
+                  "name": "compensation_deployment_profile",
+                  "displayName": "Deployment Profile",
+                  "type": "string",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Deployment profile to be executed. Required to execute an application workflow.",
+                  "url": "api/workflows/profiles",
+                  "dependencies": [
+                    "compensation_application"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_install_mode",
+                  "name": "compensation_install_mode",
+                  "displayName": "Installation Mode",
+                  "type": "string",
+                  "isOptional": false,
+                  "defaultValue": "Overwrite Existing",
+                  "description": "SkipExisting deploys on targets where the package has not been deployed yet. OverwriteExisting deploys the package on every target by overwriting.",
+                  "possibleValues": [
+                    "Overwrite Existing",
+                    "Skip Existing"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_dynamic_property",
+                  "name": "compensation_dynamic_property",
+                  "displayName": "Dynamic Property",
+                  "type": "string",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed.",
+                  "url": "api/workflows/compensation-dynamic-property",
+                  "dependencies": [
+                    "compensation_application",
+                    "compensation_workflow",
+                    "compensation_package"
+                  ]
+                },
+                {
+                  "uniqueId": "compensation_dynamic_property_value",
+                  "name": "compensation_dynamic_property_value",
+                  "displayName": "Value",
+                  "type": "textarea",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Dynamic properties to be used as input parameters for the workflow execution. Select a dynamic property and a value to be passed."
+                },
+                {
+                  "uniqueId": "compensation_additional_dynamic_properties",
+                  "name": "compensation_additional_dynamic_properties",
+                  "displayName": "Additional Dynamic Properties",
+                  "type": "textarea",
+                  "isOptional": true,
+                  "defaultValue": null,
+                  "description": "Pass additional dynamic properties and values (in JSON format) here ..."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputParameters": [
+        {
+          "uniqueId": "ExecutionID",
+          "name": "ExecutionID",
+          "displayName": "ExecutionID",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "The ID of the Execution."
+        },
+        {
+          "uniqueId": "RunID",
+          "name": "RunID",
+          "displayName": "RunID",
+          "type": "string",
+          "isOptional": true,
+          "defaultValue": null,
+          "description": "The runID for the workflow in the Automation Engine."
+        }
+      ]
+    },
+    {
+      "uniqueId": "Import Application Model",
+      "name": "Import Application Model",
+      "description": "Import application model from CDA",
+      "serviceType": "APPLICATION",
+      "url": "api/applications/get",
+      "parameters": null
+    },
+    {
+      "name": "Connectivity Test",
+      "description": "Connection Test",
+      "serviceType": "CONNECTIVITY_TEST",
+      "url": "api/connectivity/connectivity-test",
+      "uniqueId": "Connectivity Test"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<assembly>
+    <id>dist</id>
+    <!-- Generates a zip package containing the needed files -->
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+    
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/target</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>*.war</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>THIRD-PARTY-LICENSES.txt</include>
+                <include>THIRD-PARTY-LICENSES/*.*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    
+</assembly>

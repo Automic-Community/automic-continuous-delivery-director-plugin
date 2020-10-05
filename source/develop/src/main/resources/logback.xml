@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ 
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+ 
+  <!-- To enable JMX Management -->
+  <jmxConfigurator/>
+ 
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <Pattern>%date{ISO8601} %-5level [%thread] [%logger{40}]  %msg%n</Pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${catalina.base}/logs/cdd-cda-plugin.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.base}/logs/cdd-cda-plugin_%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy> 
+    <encoder>
+      <pattern>%date{ISO8601} %-5level [%thread] [%logger{40}]  %msg%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <logger name="com.automic.ara" level="info" />  
+  
+  <root level="info">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>
